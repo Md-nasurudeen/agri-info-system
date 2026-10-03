@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import * as XLSX from 'xlsx';
+import { API_URL } from '../config';
 
 function Crops() {
   const [crops, setCrops] = useState([]);
@@ -20,7 +21,7 @@ function Crops() {
 
   const fetchCrops = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/crops');
+      const response = await fetch(`${API_URL}/api/crops`);
       if (!response.ok) throw new Error('Failed to fetch crops');
       const data = await response.json();
       setCrops(data);
@@ -47,7 +48,7 @@ function Crops() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/crops', {
+      const response = await fetch(`${API_URL}/api/crops`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -81,7 +82,7 @@ function Crops() {
         const worksheet = workbook.Sheets[sheetName];
         const jsonData = XLSX.utils.sheet_to_json(worksheet);
         for (const crop of jsonData) {
-          await fetch('http://localhost:5000/api/crops', {
+          await fetch(`${API_URL}/api/crops`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

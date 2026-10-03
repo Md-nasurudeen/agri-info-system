@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { API_URL } from '../config';
 
 function Weather() {
   const [city, setCity] = useState('');
@@ -12,7 +13,7 @@ function Weather() {
     }
 
     try {
-      const response = await fetch(`http://localhost:5000/api/weather/${encodeURIComponent(city)}`);
+      const response = await fetch(`${API_URL}/api/weather/${encodeURIComponent(city)}`);
       if (!response.ok) throw new Error('Failed to fetch weather data');
       const data = await response.json();
       setWeather(data);

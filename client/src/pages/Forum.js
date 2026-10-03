@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { API_URL } from '../config';
 
 function Forum() {
   const [posts, setPosts] = useState([]);
@@ -16,7 +17,7 @@ function Forum() {
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/forum');
+      const response = await fetch(`${API_URL}/api/forum`);
       if (!response.ok) throw new Error('Failed to fetch forum posts');
       const data = await response.json();
       setPosts(data);
@@ -39,7 +40,7 @@ function Forum() {
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/forum', {
+      const response = await fetch(`${API_URL}/api/forum`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
